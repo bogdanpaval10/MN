@@ -1,0 +1,51 @@
+/* Copyright 2021 <Paval Bogdan-Costin> */
+
+nearest-neighbour
+- nn_2x2: Am initializat matricea cu 0, apoi am calculat fiecare pixel din
+	matrice, mergand pe 4 cazuri in functie de pozitia pixelului.
+- nn_resize: Am calculat s_x si s_y, apoi am construit matricea de transformare
+	si inversa ei. Pentru fiecare pixel am aplicat transformarea inversa,
+	rezultand x_p si y_p. Am actualizat valoarea pixelului.
+
+bilinear
+- surrounding_points: Am calculat valorile x1, x2, y1, y2 cu ajutorul x, y
+	primite ca parametru. Am testat ca valorile sa nu fie in afara
+	dimeniunilor matricei, iar in acest caz am scazut o unitate.
+- bilinear_coef: Am format matricea A cu ajutorul punctelor primite in functie
+	ca parametri si apoi vectorul b. Rezultatul l-am calculat cu A \ b.
+- bilinear_2x2: Am calculat coeficientii de interpolare, apoi am calculat
+	valorile pixelilor cu ajutorul coeficientilor aflati anterior.
+- bilinear_resize: Am calculat s_x si s_y, apoi am construit matricea de
+	transformare si inversa ei. Pentru fiecare pixel am aplicat
+	transformarea inversa, rezultand x_p si y_p. Am aflat punctele ce
+	inconjoara punctul aflat anterior si am calculat coeficientii de
+	interpolare. Am actualizat valoarea pixelului.
+- bilinear_rotate: Am calculat valorile pentru sin si cos si cu ajutorul lor
+	am format matricea ce transformare si inversa ei. Pentru fiecare pixel
+	am aplicat transformarea inversa, rezultand x_p si y_p. Am verificat
+	daca pixelul trebuie sa fie negru, apoi am aflat punctele ce inconjoara
+	punctul aflat anterior si am calculat coeficientii de interpolare.
+	Am actualizat valoarea pixelului.
+
+bicubic
+- functiile fx, fy, fxy: am calculat derivatele in punctul dat ca parametru.
+- precalc_d: Am initializat cu 0 cele 3 matrice Ix, Iy si Ixy, apoi le-am
+	calculat apeland functiile anterioare care aproximeaza derivatele.
+- bicubic_coef: Am format cele 3 matrice A1, A2 si A3 pe care le-am facut
+	double. Matricea finala este inmultirea acestor 3 matrice.
+- bicubic_resize: Am calculat s_x si s_y, apoi am construit matricea de
+	transformare si inversa ei. Folosind functia precalc_d am aflat
+	matricele Ix, Iy, Ixy. Pentru fiecare pixel am aplicat
+	transformarea inversa, rezultand x_p si y_p. Am aflat punctele ce
+	inconjoara punctul aflat anterior si coeficientii de interpolare.
+	Am actualizat valoarea pixelului.
+
+Toate functiile *_RGB urmeaza acelasi principiu: Am extras cele 3 canale
+de culori, am aplicat functia anterioara pe fiecare canal, apoi am format
+matricea finala cu cele 3 matrice.
+
+Feedback: A fost foarte bine ca am avut doar o tema si un timp mai mare de
+predare, chiar a fost in ajutorul nostru. Atat pdf-ul cu cerintele cat si 
+TODO-urile m-au facut sa inteleg pasii si modul de rezolvare. A durat ceva pana
+mi-am dat seama ca in unele cazuri indicii sunt pe dos, dar per total sunt multumit
+de aceasta tema.
